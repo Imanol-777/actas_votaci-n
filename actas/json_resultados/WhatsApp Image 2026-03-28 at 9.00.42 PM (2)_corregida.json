@@ -1,0 +1,39 @@
+{
+  "acta": "acta_de_escrutinio_y_computo_ayuntamiento_edomex_2024.png",
+  "resultados": [
+    {
+      "partido": "PT",
+      "votos": 1
+    },
+    {
+      "partido": "PVEM",
+      "votos": 87
+    },
+    {
+      "partido": "MORENA",
+      "votos": 96
+    },
+    {
+      "partido": "PT-MORENA",
+      "votos": 1
+    },
+    {
+      "partido": "PT",
+      "votos": 3
+    },
+    {
+      "partido": "PT",
+      "votos": 0
+    },
+    {
+      "partido": "PT",
+      "votos": 0
+    },
+    {
+      "partido": "PT",
+      "votos": 0
+    }
+  ],
+  "votos_nulos": 1,
+  "total": 136
+}

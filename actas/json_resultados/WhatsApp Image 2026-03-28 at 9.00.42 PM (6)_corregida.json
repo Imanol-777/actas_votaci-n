@@ -1,0 +1,15 @@
+{
+  "acta": "imagen",
+  "resultados": [
+    {
+      "partido": "PT",
+      "votos": 21
+    },
+    {
+      "partido": "MORENA",
+      "votos": 463
+    }
+  ],
+  "votos_nulos": 0,
+  "total": 484
+}

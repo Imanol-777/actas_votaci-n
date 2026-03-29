@@ -1,0 +1,35 @@
+{
+  "acta": "acta_escrutinio_y_computo_edomex_2024.png",
+  "resultados": [
+    {
+      "partido": "PAN",
+      "votos": 12
+    },
+    {
+      "partido": "PRI",
+      "votos": 8
+    },
+    {
+      "partido": "PRD",
+      "votos": 0
+    },
+    {
+      "partido": "PVEM",
+      "votos": 0
+    },
+    {
+      "partido": "PT",
+      "votos": 0
+    },
+    {
+      "partido": "MC",
+      "votos": 0
+    },
+    {
+      "partido": "MORENA",
+      "votos": 0
+    }
+  ],
+  "votos_nulos": 10,
+  "total": 30
+}

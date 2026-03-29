@@ -1,0 +1,43 @@
+{
+  "acta": "acta_escrutinio_y_computo_casilla_tejupilco.jpg",
+  "resultados": [
+    {
+      "partido": "PAN",
+      "votos": 160
+    },
+    {
+      "partido": "PRI",
+      "votos": 5
+    },
+    {
+      "partido": "PT",
+      "votos": 4
+    },
+    {
+      "partido": "MC",
+      "votos": 103
+    },
+    {
+      "partido": "MORENA",
+      "votos": 92
+    },
+    {
+      "partido": "PVEM",
+      "votos": 2
+    },
+    {
+      "partido": "ALIANZA",
+      "votos": 0
+    },
+    {
+      "partido": "PRD",
+      "votos": 1
+    },
+    {
+      "partido": "PAN-PRI",
+      "votos": 0
+    }
+  ],
+  "votos_nulos": 15,
+  "total": 382
+}

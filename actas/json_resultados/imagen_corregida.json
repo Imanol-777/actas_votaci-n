@@ -1,0 +1,35 @@
+{
+  "acta": "acta_de_escrutinio_y_computo_2024.png",
+  "resultados": [
+    {
+      "partido": "PAN",
+      "votos": 87
+    },
+    {
+      "partido": "PRI",
+      "votos": 5
+    },
+    {
+      "partido": "PRD",
+      "votos": 3
+    },
+    {
+      "partido": "PVEM",
+      "votos": 102
+    },
+    {
+      "partido": "PT",
+      "votos": 80
+    },
+    {
+      "partido": "MORENA",
+      "votos": 0
+    },
+    {
+      "partido": "MC",
+      "votos": 0
+    }
+  ],
+  "votos_nulos": 6,
+  "total": 392
+}

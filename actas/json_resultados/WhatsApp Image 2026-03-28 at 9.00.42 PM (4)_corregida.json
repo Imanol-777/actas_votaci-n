@@ -1,0 +1,35 @@
+{
+  "acta": "acta_electoral.png",
+  "resultados": [
+    {
+      "partido": "PAN",
+      "votos": 165
+    },
+    {
+      "partido": "PRI",
+      "votos": 0
+    },
+    {
+      "partido": "PRD",
+      "votos": 0
+    },
+    {
+      "partido": "PVEM",
+      "votos": 0
+    },
+    {
+      "partido": "PT",
+      "votos": 0
+    },
+    {
+      "partido": "MC",
+      "votos": 0
+    },
+    {
+      "partido": "MORENA",
+      "votos": 0
+    }
+  ],
+  "votos_nulos": 0,
+  "total": 165
+}

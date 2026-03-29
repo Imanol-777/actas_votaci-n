@@ -1,0 +1,43 @@
+{
+  "acta": "imagen",
+  "resultados": [
+    {
+      "partido": "PT",
+      "votos": 5
+    },
+    {
+      "partido": "MC",
+      "votos": 4
+    },
+    {
+      "partido": "MORENA",
+      "votos": 0
+    },
+    {
+      "partido": "PVEM",
+      "votos": 0
+    },
+    {
+      "partido": "PRI",
+      "votos": 0
+    },
+    {
+      "partido": "PAN",
+      "votos": 0
+    },
+    {
+      "partido": "PRD",
+      "votos": 0
+    },
+    {
+      "partido": "ALIANZA",
+      "votos": 0
+    },
+    {
+      "partido": "PT-MORENA",
+      "votos": 0
+    }
+  ],
+  "votos_nulos": 0,
+  "total": 9
+}
