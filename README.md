@@ -2,7 +2,7 @@
 Proyecto realizado para la materia de Programación II, en este proyecto se hace uso de la inteligencia artificial para leer y extraer automaticamente los resultadosmde votacion de  actas electorales fotografiadas.
 
 #Equipo FizzBuzz
-nombres:
+#nombres de los integrantes del equipo:
 Mario Jonathan Morales Aguilar
 ...
 ...
