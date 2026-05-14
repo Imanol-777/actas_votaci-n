@@ -1,5 +1,5 @@
 # TITULO DEL PROYECTO...
-Proyecto realizado para la materia de Programación II, en este proyecto se hace uso de la inteligencia artificial para leer y extraer automaticamente los resultadosmde votacion de  actas electorales fotografiadas.
+Proyecto realizado para la materia de Programación II, en este proyecto se hace uso de la inteligencia artificial para leer y extraer automaticamente los resultados de votacion de  actas electorales fotografiadas.
 
 ## Equipo FizzBuzz
 ## Nombres de los integrantes del equipo:
@@ -25,4 +25,21 @@ proyecto/
 
 ## Cómo usarlo      
 ### Paso 1 - Corregir las fotos (opcional)
-Si las fotos estan inclinadas 
+Si las fotos estan inclinadas puedes usar el codigo mencionado anteriormente para corregirlas:  
+corregir_fotos.py  
+actas_resultados/  
+las fotos corregidas deberian guardarse en "actas_resultados/corregidas/".
+
+### paso 2 - Extraer los datos  
+Pon las fotos seleccionadas en la carpeta "actas_resultados" y ejecuta el codigo:  
+aaa.py  
+Los archivos deberian guardarse en la carpeta "json_resultados/" como archivos .json, uno por cada acta
+
+### Salida
+Cada acta genera un archivo .json con esta estructura:  
+{ 
+  "acta": (nombre_del_archivo),
+  "resultados": [
+    {"partido": "PAN" , "votos": 53},  
+    ...  
+    ...  
