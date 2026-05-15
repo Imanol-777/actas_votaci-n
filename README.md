@@ -38,14 +38,14 @@ Los archivos deberian guardarse en la carpeta "json_resultados/" como archivos .
 ### Salida
 Cada acta genera un archivo .json con esta estructura:  
 { 
-  "acta": (nombre_del_archivo),
-  "resultados": [
-    {"partido": "PAN", "votos": 57,  
-    {"partido": "PRI", "votos": 61},
-    {"partido": "MORENA", "votos": 120},
-    ...  
-    ...  
-    ],
-    "votos nulos": 17,
-    "total": 300
-   } 
+  "acta": (nombre_del_archivo),  
+  "resultados": [  
+    {"partido": "PAN", "votos": 57,    
+    {"partido": "PRI", "votos": 61},  
+    {"partido": "MORENA", "votos": 120},  
+    ...    
+    ...    
+    ],  
+    "votos nulos": 17,  
+    "total": 300  
+   }   
