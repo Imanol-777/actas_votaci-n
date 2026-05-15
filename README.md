@@ -45,7 +45,7 @@ Cada acta genera un archivo .json con esta estructura:
     {"partido": "MORENA", "votos": 120},  
     ...    
     ...    
-    ],  
+    ,  
     "votos nulos": 17,  
     "total": 300  
    }   
