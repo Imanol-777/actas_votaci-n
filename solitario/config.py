@@ -16,6 +16,10 @@ KING_IMG_H = CARD_H - 46
 ACE_IMG_W = CARD_W - 14
 ACE_IMG_H = CARD_H - 46
 
+# --- Tamaño máximo de la imagen personalizada de la reina ---
+QUEEN_IMG_W = CARD_W - 14
+QUEEN_IMG_H = CARD_H - 46
+
 # --- Colores ---
 COL_FELT = "#0a6b3b"      
 COL_CARD = "#fdfdf7"      
@@ -27,6 +31,7 @@ COL_RED = "#c81e1e"
 COL_BLACK = "#1a1a1a"
 COL_GOLD = "#d4af37"      # borde de un rey con imagen personalizada
 COL_BLUE = "#270bc5"    # borde de un as con imagen personalizada
+COL_RED = "#ff0000"  # borde de una reina con imagen personalizada
 
 def col_x(i):
     """Coordenada X de la columna i (0..6)."""

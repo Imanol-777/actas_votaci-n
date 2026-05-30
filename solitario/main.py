@@ -1,13 +1,15 @@
 import tkinter as tk
 
-from view import SolitaireUI
+from view import SolitarioUI
 
 
 def main():
     root = tk.Tk()
-    SolitaireUI(root)
+    SolitarioUI(root)
     root.mainloop()
 
 
 if __name__ == "__main__":
     main()
+
+
