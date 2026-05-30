@@ -3,7 +3,7 @@ from tkinter import filedialog, messagebox
 
 from cartas import Carta, SUITS, SUIT_SYMBOL, SUIT_NAME_ES
 from config import (
-    CARD_W, CARD_H, MARGIN, TOP_Y, TABLEAU_Y, FD_OFF, FU_OFF,
+    CARD_W, CARD_H, COL_BLUE, MARGIN, TOP_Y, TABLEAU_Y, FD_OFF, FU_OFF,
     CANVAS_W, CANVAS_H, COL_FELT, COL_CARD, COL_BACK, COL_BACK2,
     COL_SLOT, COL_SLOT_LINE, COL_RED, COL_BLACK, COL_GOLD, col_x,
 )
@@ -11,7 +11,7 @@ from game import Solitario
 from image_rey import make_photo, HAS_PIL
 
 
-class SolitaireUI:
+class SolitarioUI:
     def __init__(self, root):
         self.root = root
         self.game = Solitario()
@@ -53,7 +53,7 @@ class SolitaireUI:
 
         self.redraw()
 
-    # ================== Menú ==================
+    # Menu
     def _build_menu(self):
         menubar = tk.Menu(self.root)
 
@@ -100,7 +100,7 @@ class SolitaireUI:
             "Menú “Reyes”: carga una imagen de tu dispositivo para cada rey.",
         )
 
-    # ================== Acciones generales ==================
+    # Acciones de juego
     def new_game(self):
         self.game.new_game()
         self.drag = None
@@ -191,12 +191,16 @@ class SolitaireUI:
                                     text="♣♠", fill=COL_BACK,
                                     font=("Helvetica", 22, "bold"))
             return
-
+        
         fill = COL_RED if card.color == "red" else COL_BLACK
-        is_king = card.rank == 13
-        custom = is_king and card.suit in self.king_images
-        outline = COL_GOLD if custom else "#c9c9bd"
-        width = 3 if custom else 1
+        king_custom = card.rank == 13 and card.suit in self.king_images
+        ace_custom  = card.rank == 1  and card.suit in self.ace_images
+        if king_custom:
+            outline, width = COL_GOLD, 3
+        elif ace_custom:
+            outline, width = COL_BLUE, 3
+        else:
+            outline, width = "#c9c9bd", 1
         self.round_rect(x, y, x + CARD_W, y + CARD_H, 10,
                         fill=COL_CARD, outline=outline, width=width)
 
@@ -211,8 +215,10 @@ class SolitaireUI:
                                  fill=fill, font=("Helvetica", 14), anchor="se")
 
         cx, cy = x + CARD_W / 2, y + CARD_H / 2 + 4
-        if custom:
+        if king_custom:
             self.canvas.create_image(cx, cy, image=self.king_images[card.suit])
+        elif ace_custom:
+            self.canvas.create_image(cx, cy, image=self.ace_images[card.suit])
         elif card.rank in (11, 12, 13):
             self.canvas.create_text(cx, cy, text=card.label, fill=fill, font=self.f_face)
         else:
@@ -307,7 +313,6 @@ class SolitaireUI:
 
     # ================== Eventos ==================
     def on_press(self, e):
-        # ¿Clic en el mazo?
         if col_x(0) <= e.x <= col_x(0) + CARD_W and TOP_Y <= e.y <= TOP_Y + CARD_H:
             self.game.draw_stock()
             self.redraw()
