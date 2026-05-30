@@ -36,7 +36,7 @@ class SolitaireUI:
         self.drag = None
         self.draw_order = []
 
-        self._build_menu()
+        self._build_menu() 
 
         self.canvas = tk.Canvas(root, width=CANVAS_W, height=CANVAS_H,
                                 bg=COL_FELT, highlightthickness=0)
