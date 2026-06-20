@@ -48,6 +48,11 @@ class SolitarioUI:
         self.drag = None
         self.draw_order = []
 
+        # Estado del cronómetro
+        self._segundos = 0          # tiempo transcurrido en segundos
+        self._timer_activo = False  # si el cronómetro está corriendo
+        self._timer_job = None      # id del after() programado
+
         self._build_menu()
 
         self.canvas = tk.Canvas(root, width=CANVAS_W, height=CANVAS_H,
@@ -64,6 +69,38 @@ class SolitarioUI:
         self.canvas.bind("<Double-Button-1>", self.on_double)
 
         self.redraw()
+        self._start_timer()   # arranca el cronómetro al iniciar la partida
+
+    # ================== Cronómetro ==================
+    def _fmt_time(self, segundos):
+        """Devuelve los segundos en formato MM:SS (o H:MM:SS si pasa de una hora)."""
+        h, resto = divmod(int(segundos), 3600)
+        m, s = divmod(resto, 60)
+        if h:
+            return "%d:%02d:%02d" % (h, m, s)
+        return "%02d:%02d" % (m, s)
+
+    def _start_timer(self):
+        """Reinicia el contador a cero y comienza a contar."""
+        self._stop_timer()        # cancela cualquier tic pendiente
+        self._segundos = 0
+        self._timer_activo = True
+        self._tick()
+
+    def _stop_timer(self):
+        """Detiene el cronómetro y cancela el tic programado."""
+        self._timer_activo = False
+        if self._timer_job is not None:
+            self.root.after_cancel(self._timer_job)
+            self._timer_job = None
+
+    def _tick(self):
+        """Suma un segundo cada 1000 ms y refresca la barra de estado."""
+        if not self._timer_activo:
+            return
+        self._segundos += 1
+        self._update_status()
+        self._timer_job = self.root.after(1000, self._tick)
 
     # Menu
     def _build_menu(self):
@@ -140,6 +177,7 @@ class SolitarioUI:
         self.game.new_game()
         self.drag = None
         self.redraw()
+        self._start_timer() 
 
     # ================== Imágenes de reyes ==================
     def load_king_image(self, suit):
@@ -417,9 +455,14 @@ class SolitarioUI:
             for idx, cd in enumerate(self.drag["cards"]):
                 self.draw_card(cd, dx, dy + idx * FU_OFF)
 
+        self._update_status()
+
+    def _update_status(self):
+        """Refresca la barra de estado (tiempo, movimientos, mazo, etc.)."""
+        g = self.game
         self.status.config(
-            text="Movimientos: %d   |   Mazo: %d   Descarte: %d   Fundaciones: %d/52"
-            % (g.moves, len(g.stock), len(g.waste), sum(len(f) for f in g.foundations))
+            text="Tiempo: %s   |   Movimientos: %d   |   Descarte: %d   Fundaciones: %d/52"
+            % (self._fmt_time(self._segundos), g.moves, len(g.waste), sum(len(f) for f in g.foundations))
         )
 
     # ================== Detección con el ratón ==================
@@ -539,9 +582,11 @@ class SolitarioUI:
 
     def _check_win(self):
         if self.game.is_won():
+            self._stop_timer()   # congela el tiempo al ganar
             if messagebox.askyesno(
                 "¡Ganaste!",
-                "\U0001f389 ¡Completaste el solitario en %d movimientos!\n\n"
-                "¿Jugar otra partida?" % self.game.moves,
+                "\U0001f389 ¡Completaste el solitario en %d movimientos "
+                "y %s!\n\n"
+                "¿Jugar otra partida?" % (self.game.moves, self._fmt_time(self._segundos)),
             ):
                 self.new_game()
