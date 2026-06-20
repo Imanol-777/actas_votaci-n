@@ -5,12 +5,13 @@ from cartas import Carta, SUITS, SUIT_SYMBOL, SUIT_NAME_ES
 from config import (
     CARD_W, CARD_H, COL_BLUE, COL_RED, MARGIN, TOP_Y, TABLEAU_Y, FD_OFF, FU_OFF,
     CANVAS_W, CANVAS_H, COL_FELT, COL_CARD, COL_BACK, COL_BACK2,
-    COL_SLOT, COL_SLOT_LINE, COL_RED, COL_BLACK, COL_GOLD, col_x,
+    COL_SLOT, COL_SLOT_LINE, COL_PURPLE, COL_BLACK, COL_GOLD, col_x, 
 )
 from game import Solitario
 from image_rey import make_photo, HAS_PIL
 from image_as import make_photo, HAS_PIL
 from image_reina import make_photo, HAS_PIL
+from image_jota import make_photo, HAS_PIL
 
 class SolitarioUI:
     def __init__(self, root):
@@ -35,6 +36,9 @@ class SolitarioUI:
 
         # Imágenes personalizadas de las reinas: palo -> PhotoImage
         self.queen_images = {}
+
+        # Imágenes personalizadas de los jotas: palo -> PhotoImage
+        self.jack_images = {}
 
         # Estado del arrastre y registro de dibujo para detectar clics
         self.drag = None
@@ -101,6 +105,16 @@ class SolitarioUI:
         m_queen.add_separator()
         m_queen.add_command(label="Restablecer reinas", command=self.reset_queens)
         menubar.add_cascade(label="Reinas", menu=m_queen)           
+        
+        m_jack = tk.Menu(menubar, tearoff=0)
+        for s in SUITS:
+            m_jack.add_command(
+                label="Cargar imagen → Jota de %s %s" % (SUIT_NAME_ES[s], SUIT_SYMBOL[s]),
+                command=lambda su=s: self.load_jack_image(su),
+            )
+        m_jack.add_separator()
+        m_jack.add_command(label="Restablecer jotas", command=self.reset_jacks)
+        menubar.add_cascade(label="Jotas", menu=m_jack)
 
     def show_help(self):
         messagebox.showinfo(
@@ -113,7 +127,8 @@ class SolitarioUI:
             "• Doble clic en una carta para enviarla a su fundación automáticamente.\n\n"
             "Menú “Reyes”: carga una imagen de tu dispositivo para cada rey.\n"
             "Menú “Ases”: carga una imagen de tu dispositivo para cada as.\n"
-            "Menú “Reinas”: carga una imagen de tu dispositivo para cada reina.",
+            "Menú “Reinas”: carga una imagen de tu dispositivo para cada reina.\n"
+            "Menú “Jotas”: carga una imagen de tu dispositivo para cada jota.\n",
         )
 
     # Acciones de juego
@@ -208,6 +223,36 @@ class SolitarioUI:
     def reset_queens(self):
         self.queen_images.clear()
         self.redraw()
+
+    # ================== Imágenes de jotas ==================
+    def load_jack_image(self, suit):
+        if HAS_PIL:
+            ftypes = [("Imágenes", "*.png *.jpg *.jpeg *.gif *.bmp *.webp"), ("Todos", "*.*")]
+        else:
+            ftypes = [("Imágenes PNG/GIF", "*.png *.gif"), ("Todos", "*.*")]
+        path = filedialog.askopenfilename(
+            title="Elige la imagen para el Jota de %s" % SUIT_NAME_ES[suit],
+            filetypes=ftypes,
+        )
+        if not path:
+            return
+        try:
+            photo = make_photo(path)
+        except Exception as e:
+            messagebox.showerror(
+                "No se pudo cargar la imagen",
+                "Ocurrió un error al abrir la imagen:\n%s\n\n"
+                "Sugerencia: instala Pillow para admitir JPG y otros formatos:\n"
+                "    pip install pillow" % e,
+            )
+            return
+        self.jack_images[suit] = photo
+        self.redraw()
+
+    def reset_jacks(self):
+        self.jack_images.clear()
+        self.redraw()
+
     # ================== Dibujo ==================
     def round_rect(self, x1, y1, x2, y2, r, **kw):
         pts = [
@@ -240,12 +285,15 @@ class SolitarioUI:
         king_custom = card.rank == 13 and card.suit in self.king_images
         ace_custom  = card.rank == 1  and card.suit in self.ace_images
         queen_custom = card.rank == 12 and card.suit in self.queen_images
+        jack_custom = card.rank == 11 and card.suit in self.jack_images
         if king_custom:
             outline, width = COL_GOLD, 3
         elif ace_custom:
             outline, width = COL_BLUE, 3
         elif queen_custom:
             outline, width = COL_RED, 3
+        elif jack_custom:
+            outline, width = COL_PURPLE, 3
         else:
             outline, width = "#c9c9bd", 1
         self.round_rect(x, y, x + CARD_W, y + CARD_H, 10,
@@ -268,6 +316,8 @@ class SolitarioUI:
             self.canvas.create_image(cx, cy, image=self.ace_images[card.suit])
         elif queen_custom:
             self.canvas.create_image(cx, cy, image=self.queen_images[card.suit])
+        elif jack_custom:
+            self.canvas.create_image(cx, cy, image=self.jack_images[card.suit])
         elif card.rank in (11, 12, 13):
             self.canvas.create_text(cx, cy, text=card.label, fill=fill, font=self.f_face)
         else:

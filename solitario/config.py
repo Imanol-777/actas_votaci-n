@@ -20,6 +20,10 @@ ACE_IMG_H = CARD_H - 46
 QUEEN_IMG_W = CARD_W - 14
 QUEEN_IMG_H = CARD_H - 46
 
+# --- Tamaño máximo de la imagen personalizada del jota ---
+JACK_IMG_W = CARD_W - 14
+JACK_IMG_H = CARD_H - 46
+
 # --- Colores ---
 COL_FELT = "#0a6b3b"      
 COL_CARD = "#fdfdf7"      
@@ -32,6 +36,7 @@ COL_BLACK = "#1a1a1a"
 COL_GOLD = "#d4af37"      # borde de un rey con imagen personalizada
 COL_BLUE = "#270bc5"    # borde de un as con imagen personalizada
 COL_RED = "#ff0000"  # borde de una reina con imagen personalizada
+COL_PURPLE = "#9C149C"  # borde de un jota con imagen personalizada
 
 def col_x(i):
     """Coordenada X de la columna i (0..6)."""
