@@ -1,12 +1,26 @@
 {
   "rey": {
-    "spades": "rey_spades.gif",
-    "hearts": "rey_hearts.gif"
+    "spades": "rey_spades.jpg",
+    "hearts": "rey_hearts.gif",
+    "diamonds": "rey_diamonds.jpg",
+    "clubs": "rey_clubs.jpg"
   },
-  "as": {},
-  "reina": {},
+  "as": {
+    "spades": "as_spades.jpg",
+    "hearts": "as_hearts.png",
+    "diamonds": "as_diamonds.gif",
+    "clubs": "as_clubs.gif"
+  },
+  "reina": {
+    "spades": "reina_spades.png",
+    "hearts": "reina_hearts.png",
+    "diamonds": "reina_diamonds.png",
+    "clubs": "reina_clubs.png"
+  },
   "jota": {
     "hearts": "jota_hearts.gif",
-    "diamonds": "jota_diamonds.gif"
+    "diamonds": "jota_diamonds.jpg",
+    "spades": "jota_spades.gif",
+    "clubs": "jota_clubs.gif"
   }
 }
