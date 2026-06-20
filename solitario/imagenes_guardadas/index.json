@@ -1,0 +1,12 @@
+{
+  "rey": {
+    "spades": "rey_spades.gif",
+    "hearts": "rey_hearts.gif"
+  },
+  "as": {},
+  "reina": {},
+  "jota": {
+    "hearts": "jota_hearts.gif",
+    "diamonds": "jota_diamonds.gif"
+  }
+}

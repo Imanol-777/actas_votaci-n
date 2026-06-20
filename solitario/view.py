@@ -12,6 +12,7 @@ from image_rey import make_photo, HAS_PIL
 from image_as import make_photo, HAS_PIL
 from image_reina import make_photo, HAS_PIL
 from image_jota import make_photo, HAS_PIL
+import almacenamiento
 
 class SolitarioUI:
     def __init__(self, root):
@@ -39,6 +40,9 @@ class SolitarioUI:
 
         # Imágenes personalizadas de los jotas: palo -> PhotoImage
         self.jack_images = {}
+
+        # Recupera las imágenes guardadas en sesiones anteriores
+        self._cargar_imagenes_guardadas()
 
         # Estado del arrastre y registro de dibujo para detectar clics
         self.drag = None
@@ -160,9 +164,11 @@ class SolitarioUI:
             )
             return
         self.king_images[suit] = photo
+        almacenamiento.guardar("rey", suit, path)
         self.redraw()
 
     def reset_kings(self):
+        almacenamiento.borrar_tipo("rey")
         self.king_images.clear()
         self.redraw()
  
@@ -189,9 +195,11 @@ class SolitarioUI:
             )
             return
         self.ace_images[suit] = photo
+        almacenamiento.guardar("as", suit, path)
         self.redraw()
 
     def reset_aces(self):
+        almacenamiento.borrar_tipo("as")
         self.ace_images.clear()
         self.redraw()
 
@@ -218,9 +226,11 @@ class SolitarioUI:
             )
             return
         self.queen_images[suit] = photo
+        almacenamiento.guardar("reina", suit, path)
         self.redraw()
 
     def reset_queens(self):
+        almacenamiento.borrar_tipo("reina")
         self.queen_images.clear()
         self.redraw()
 
@@ -247,11 +257,31 @@ class SolitarioUI:
             )
             return
         self.jack_images[suit] = photo
+        almacenamiento.guardar("jota", suit, path)
         self.redraw()
 
     def reset_jacks(self):
+        almacenamiento.borrar_tipo("jota")
         self.jack_images.clear()
         self.redraw()
+
+    def _cargar_imagenes_guardadas(self):
+        """Carga al iniciar las imágenes guardadas en sesiones anteriores."""
+        destino = {
+            "rey": self.king_images,
+            "as": self.ace_images,
+            "reina": self.queen_images,
+            "jota": self.jack_images,
+        }
+        for kind, palos in almacenamiento.cargar_todo().items():
+            dic = destino.get(kind)
+            if dic is None:
+                continue
+            for suit, ruta in palos.items():
+                try:
+                    dic[suit] = make_photo(ruta)
+                except Exception:
+                    pass
 
     # ================== Dibujo ==================
     def round_rect(self, x1, y1, x2, y2, r, **kw):
